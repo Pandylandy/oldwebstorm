@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../11/modernizr-latest.js"></script>
+    <script src="../11/ChemDoodleWeb.css"></script>
+    <script src="../11/ChemDoodleWeb.js"></script>
+    <script src="../11/ChemDoodleWeb-libs.js"></script>
+    <script>
+        function proverka()
+            {
+            if(!document.createElement('canvas').getContext) alert('Браузер не поддерживает рисование на холсте!');
+    }
+        function myDrawing()
+    {
+    var canvas = document.getElementById('myCanvas');
+    var ctx = canvas.getContext('2d');
+        ctx.beginPath();
+    ctx.fillRect(30, 30, 145, 100);
+    ctx.fillStyle = "rgb(0, 162, 232)";
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.fillStyle = "rgba(255, 255, 0, 0.55)";
+    ctx.arc(300, 100, 100, 0, 2*Math.PI, true);
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.beginPath();
+    ctx.moveTo(50,300);
+    ctx.strokeStyle="aqua";
+    ctx.lineWidth=5;
+    ctx.bezierCurveTo(250, 150, 180, 400, 400, 250);
+    ctx.closePath();
+    ctx.stroke();
+
+
+    ctx.beginPath();
+    ctx.strokeStyle= "magenta";
+    ctx.strokeRect(40, 40, 125, 80);
+
+    ctx.beginPath();
+    ctx.strokeStyle = "crimson";
+    ctx.lineWidth= 10;
+    ctx.arc(210, 218, 20, 0, 0.3*Math.PI, true);
+    ctx.stroke();
+
+
+    ctx.beginPath();
+    ctx.moveTo(50, 300);
+    ctx.quadraticCurveTo(200, 0, 400, 250);
+    ctx.lineWidth = 7;
+    ctx.strokeStyle = "darkgreen";
+    ctx.stroke();
+
+
+//        ctx.beginPath();
+//        ctx.strokeStyle="midnightblue";
+//        ctx.strokeRect(250,250,50,50);
+//        ctx.translate(20,50);
+//        ctx.strokeRect(250,250,50,50);
+//        ctx.translate(20,50);
+//        ctx.strokeRect(250,250,50,50);
+//        ctx.translate(20,50);
+
+        ctx.beginPath();
+        ctx.translate(400, 320);
+            ctx.strokeStyle = "midnightblue";
+            ctx.lineWidth= 5;
+            var copies = 13;
+            for (var i=1; i<copies; i++) {
+
+                ctx.rotate(2 * Math.PI /(copies-1));
+
+                ctx.strokeRect(0, 0, 50, 50);
+            }
+
+            ctx.stroke();
+
+
+
+        function myImage()
+    {
+    var canvas = document.getElementById('myCanvas');
+    var dataURL = canvas.toDataURL();
+    alert(dataURL);
+    document.getElementById("fromCanvas").src = dataURL;
+    }}
+
+        var myimage = document.getElementById("mypicture");
+        context.drawImage(myimage, 300, 10, 300, 300);
+
+    </script>
+
+</head>
+<body onload="proverka();" style="background-color: lightseagreen">
+<center><input type="button" value="Жми!" onclick="myDrawing();"></center>
+<canvas id="myCanvas" width="500" height="400" style="border: groove; background-color: antiquewhite" ></canvas>
+<center><input type="button" value="Сохранить как..." onclick="myImage();"></center>
+<img id="mypicture" src="http://img-fotki.yandex.ru/get/6208/102699435.655/0_876a0_c42eb01_M.jpg" alt="Bokeh">
+
+
+
+</body>
+</html>

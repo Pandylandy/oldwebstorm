@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="../11/modernizr-latest.js"></script>
+    <script>
+    function modernizr()
+    {
+        return !!document.createElement('canvas').getContext;
+    }
+
+    function proverka()
+    {
+        if (modernizr()) //Здесь я заменила "Modernizr.canvas" из задания на свою функцию, иначе выводилось "Тег canvas не поддерживается, печаль"
+            alert("Ура! Мой браузер поддерживает canvas! Можно рисовать!");
+         else
+            alert("Тег canvas не поддерживается, печаль");
+    }
+</script>
+</head>
+
+
+<body bgcolor="#ffe4c4">
+<h3> <center> Проверим, поддерживает ли Ваш браузер поддержку холста!</center></h3>
+<center><input type="button" value="Жми!" onclick="proverka();"></center>
+
+
+</body>
+</html>

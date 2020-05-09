@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Periodic Table</title>
+    <script src="ChemDoodleWeb-libs.js"></script>
+    <script src="ChemDoodleWeb.js"></script>
+    <script src="modernizr-latest.js"></script>
+    <script type="text/javascript">
+        k = 1;
+        function newDIV(inf) {
+            var inf1 = document.getElementById('elements');
+            var infObl = inf1.innerHTML;
+
+            var text = "<div id='mydiv"+k+"'>\n<button class='remove' onclick='del("+k+")'>[x]</button>\n"+inf+"</div>\n";
+
+            var inf2 = infObl + text;
+            inf1.innerHTML = inf2;
+            k += 1;
+        }
+        function del(num){
+            var myDiv = 'mydiv'+num;
+            var myObl = document.getElementById(myDiv);
+            myObl.innerHTML = '';
+        }
+    </script>
+</head>
+<body bgcolor="#C3FFB6">
+<h3 style="text-align: center; color: black">Периодическая таблица элементов Д.И.Менделеева</h3>
+
+<table align="center">
+    <tr>
+        <td>
+            <script>
+                var periodicTable = new ChemDoodle.PeriodicTableCanvas('pt', 40);
+                periodicTable.click = function(evt){
+                    if(this.hovered!=null){
+                        var e = this.getHoveredElement();
+                        var sb = [];
+                        sb.push('Element: '+e.name+'\n');
+                        sb.push('Symbol: '+e.symbol+'\n');
+                        sb.push('Atomic Number: '+e.atomicNumber+'\n');
+                        sb.push('Covalent Radius: '+e.covalentRadius+'\u212B\n');
+                        sb.push('vdW Radius: '+e.vdWRadius+'\u212B\n');
+                        newDIV(sb.join(''));
+                    }
+                }
+            </script>
+        </td>
+        <td valign="top" >
+        <div id="elements" align="center">
+            <h4>Выбранные элементы:</h4>
+        </div>
+    </td>
+    </tr>
+</table>
+<script>
+</script>
+</body>
+</html>

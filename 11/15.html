@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>13</title>
+    <link rel="stylesheet"        href="ChemDoodleWeb.css" type="text/css">
+    <script type="text/javascript" src="ChemDoodleWeb-libs.js"></script>
+    <script type="text/javascript" src="ChemDoodleWeb.js"></script>
+    <script type="text/javascript" src="modernizr-latest.js"></script>
+</head>
+<body bgcolor="6E486D">
+<table align="center"><tr><td>
+    <script type="text/javascript">
+        //Создание нового объекта Viewer 3D Canvas
+        var pi = new ChemDoodle.TransformCanvas3D('pi', 600, 600);
+        // Выбор Ван-Дер-Ваальсового представления
+        pi.specs.set3DRepresentation('van der Waals Spheres');
+        // Указание освещения
+        pi.specs.lightDirection_3D = [1,1,-0.5];
+        // Задание цвета фона
+        pi.specs.backgroundColor = 'lightblue';
+
+        // Определение молекулы
+        var molFile = 'pyridine.mol\n OpenBabel07100913143D\n\n 11 11  0  0  0  0  0  0  0  0999 V2000\n    1.4670    0.2128   -0.0000 C   0  0  0  0  0\n    0.8038   -1.0148    0.0000 C   0  0  0  0  0\n   -0.5877   -1.0312   -0.0000 C   0  0  0  0  0\n   -1.2828    0.1743   -0.0000 C   0  0  0  0  0\n   -0.5645    1.3706    0.0000 C   0  0  0  0  0\n    0.7883    1.3832   -0.0000 N   0  0  0  0  0\n    2.5597    0.2955   -0.0000 H   0  0  0  0  0\n    1.3732   -1.9493    0.0000 H   0  0  0  0  0\n   -1.1298   -1.9824   -0.0000 H   0  0  0  0  0\n   -2.3770    0.1883   -0.0000 H   0  0  0  0  0\n   -1.0502    2.3529    0.0000 H   0  0  0  0  0\n  1  2  2  0  0  0\n  6  1  1  0  0  0\n  1  7  1  0  0  0\n  2  3  1  0  0  0\n  2  8  1  0  0  0\n  3  4  2  0  0  0\n  3  9  1  0  0  0\n  4  5  1  0  0  0\n  4 10  1  0  0  0\n  5  6  2  0  0  0\n  5 11  1  0  0  0\nM  END\n'
+        // Распарсивание молекулы
+        var molecule = ChemDoodle.readMOL(molFile,2);
+        // Загрузка молекулы в объект канвас
+        pi.loadMolecule(molecule);
+
+        function load(){
+            var m = document.getElementById('molarea').value;
+            this.molecule = ChemDoodle.readMOL(m, 2);
+            pi.loadMolecule(molecule);
+        }
+        function color(inp){
+            pi.specs.atoms_useJMOLColors = false;
+            pi.specs.atoms_color = inp;
+            pi.loadMolecule(molecule);
+        }
+
+        function changeView(inp){
+            pi.specs.set3DRepresentation(inp);
+            pi.loadMolecule(molecule);
+
+        }
+
+
+    </script>
+    <form id="my_form">
+    <label><b>Choose color of atoms</b>
+        <input type="color" onchange="color(this.value); " >
+    </label>
+</form>
+    <label>
+        <b>Choose the model of 3DRepresentation of molecule</b>
+        <select name="molvw" onchange="if (this.selectedIndex) changeView(this.value);">
+            <option value="-1">Choose..</option>
+            <option value="Wireframe">Wireframe</option>
+            <option value="Stick">Stick</option>
+            <option value="van der Waals Spheres">Van der Waals Spheres</option>
+            <option value="Ball and Stick">Ball and Stick</option>
+        </select>
+    </label>
+    </td>
+    </tr>
+    <tr><td>
+        <textarea placeholder="ВВЕДИТЕ СЮДА MOL-представление молекулы" id="molarea" cols="60" rows="10"></textarea></td>
+    </tr>
+    <tr><td>
+        MOL-представление должно быть отформатировано как многострочный текст!
+        <input onclick="load();" value="OK" type="button"></td></tr>
+</table>
+</body>
+</html>
